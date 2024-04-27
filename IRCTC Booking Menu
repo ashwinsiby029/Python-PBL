@@ -1,0 +1,71 @@
+def book_ticket(tickets):
+    ticket_id=input("Enter the ticket id : ")
+    name = input("Enter passenger name: ")
+    train = input("Enter train name: ")
+    source=input("Enter the source : ")
+    destination=input("Enter the destination : ")
+    date = input("Enter journey date (DD-MM-YYYY): ")
+
+    ticket_info = {"Ticket-ID": ticket_id,"Name": name, "Train": train, "Source": source,"Destination": destination,"Date": date}
+    tickets.append(ticket_info)
+    print("Ticket booked successfully!")
+
+def view_booked_tickets(tickets):
+    if tickets:
+        print("\nBooked tickets:")
+        for ticket in tickets:
+            print(f"Ticket-ID: {ticket['Ticket-ID']}\nName: {ticket['Name']}\nTrain: {ticket['Train']}\nSource: {ticket['Source']}\nDestination: {ticket['Destination']}\nDate: {ticket['Date']}\n\n")
+    else:
+        print("No tickets booked yet.")
+
+def cancel_ticket(tickets):
+    ticket_id=input("Enter Ticket-ID to cancel : ")
+    for ticket in tickets:
+        if ticket["Ticket-ID"] == ticket_id:
+            tickets.remove(ticket)
+            print("Ticket cancelled successfully!")
+            return
+    print("Ticket with this ID does not exist.")
+
+def check_availability(tickets):
+    print("Total tickets available :", 100 - len(tickets))
+
+def save_tickets(tickets):
+    try:
+        with open("D:\\PBL 2nd semester\\python pbl.txt", 'a') as file:
+            for ticket in tickets:
+                file.write(f"Ticket-ID: {ticket['Ticket-ID']}\nName: {ticket['Name']}\nTrain: {ticket['Train']}\nSource: {ticket['Source']}\nDestination: {ticket['Destination']}\nDate: {ticket['Date']}\n\n")
+        print("Tickets saved to file successfully!")
+    except Exception as e:
+        print("Error occurred while saving tickets:",e)
+
+def main():
+    tickets = []
+    while True:
+        print("\nWelcome to IRCTC Ticket Booking System")
+        print("Total tickets = 100")
+        print("1. Book Ticket")
+        print("2. View Booked Tickets")
+        print("3. Cancel Tickets")
+        print("4. Check ticket availability")
+        print("5. Save changes")
+        print("6. Exit")
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            book_ticket(tickets)
+        elif choice == '2':
+            view_booked_tickets(tickets)
+        elif choice=='3':
+            cancel_ticket(tickets)
+        elif choice=='4':
+            check_availability(tickets)
+        elif choice=='5':
+            save_tickets(tickets)
+        elif choice == '6':
+            print("Thank you for using IRCTC Ticket Booking System. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter a valid option.")
+
+if __name__ == "__main__":
+    main()
