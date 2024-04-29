@@ -1,14 +1,31 @@
+from datetime import date
 def book_ticket(tickets):
-    ticket_id=input("Enter the ticket id : ")
-    name = input("Enter passenger name: ")
-    train = input("Enter train name: ")
-    source=input("Enter the source : ")
-    destination=input("Enter the destination : ")
-    date = input("Enter journey date (DD-MM-YYYY): ")
+    try:
+        ticket_id=int(input("Enter the ticket id : "))
+        name = input("Enter passenger name: ")
+        if name.isnumeric():
+            raise ValueError     
+        train = input("Enter train name: ")
+        if train.isnumeric():
+            raise ValueError
+        source=input("Enter the source : ")
+        if source.isnumeric():
+            raise ValueError
+        destination=input("Enter the destination : ")
+        if destination.isnumeric():
+            raise ValueError
+        year=int(input("Enter the year : "))
+        month=int(input("Enter the month : "))
+        day=int(input("Enter the day : "))
+        dt=date(year,month,day)
 
-    ticket_info = {"Ticket-ID": ticket_id,"Name": name, "Train": train, "Source": source,"Destination": destination,"Date": date}
-    tickets.append(ticket_info)
-    print("Ticket booked successfully!")
+        ticket_info = {"Ticket-ID": ticket_id,"Name": name, "Train": train, "Source": source,"Destination": destination,"Date": dt}
+        tickets.append(ticket_info)
+        print("Ticket booked successfully!")
+    except ValueError:
+        print("Enter the valid details!!!")
+    except Exception as e:
+        print("Error Occured.",e)
 
 def view_booked_tickets(tickets):
     if tickets:
@@ -66,6 +83,4 @@ def main():
             break
         else:
             print("Invalid choice. Please enter a valid option.")
-
-if __name__ == "__main__":
-    main()
+main()
